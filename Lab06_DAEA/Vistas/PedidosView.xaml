@@ -1,0 +1,209 @@
+﻿<UserControl x:Class="Lab06_DAEA.Vistas.PedidosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             FontFamily="Segoe UI"
+             Loaded="AlCargar">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="18" />
+            <ColumnDefinition Width="330" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="14" />
+            <RowDefinition Height="1.2*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Column="0" Grid.Row="0" Style="{StaticResource Tarjeta}">
+            <DockPanel>
+                <Grid DockPanel.Dock="Top" Margin="0,0,0,14">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="Pedidos"
+                               Style="{StaticResource Titulo}" Margin="0" />
+
+                    <CheckBox x:Name="MostrarInactivos" Grid.Column="1"
+                              Content="Mostrar dados de baja"
+                              VerticalAlignment="Center" Margin="0"
+                              ToolTip="Por defecto el listado solo trae los pedidos con Activo = 1"
+                              Checked="AlCambiarVisibilidad" Unchecked="AlCambiarVisibilidad" />
+                </Grid>
+
+                <TextBlock x:Name="TextoEstado" DockPanel.Dock="Bottom"
+                           Style="{StaticResource Pie}" Margin="0,10,0,0" />
+
+                <DataGrid x:Name="GrillaPedidos" SelectionChanged="AlSeleccionarPedido"
+                          RowStyle="{StaticResource FilaConEstado}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID"       Binding="{Binding IdPedido}" Width="50" />
+                        <DataGridTextColumn Header="FECHA"    Binding="{Binding FechaPedido, StringFormat=dd/MM/yyyy}" Width="85" />
+                        <DataGridTextColumn Header="CLIENTE"  Binding="{Binding NombreCliente}" Width="1.6*" />
+                        <DataGridTextColumn Header="EMPLEADO" Binding="{Binding NombreEmpleado}" Width="1.4*" />
+                        <DataGridTextColumn Header="CIUDAD"   Binding="{Binding CiudadDestinatario}" Width="95" />
+                        <DataGridTextColumn Header="CARGO"    Binding="{Binding Cargo, StringFormat={}{0:N2}}" Width="70" />
+                        <DataGridTextColumn Header="TOTAL"    Binding="{Binding TotalPedido, StringFormat={}{0:N2}}" Width="85" />
+                        <DataGridTextColumn Header="ESTADO"   Binding="{Binding EstadoTexto}" Width="105" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Border>
+
+        <Border Grid.Column="0" Grid.Row="2" Style="{StaticResource Tarjeta}">
+            <DockPanel>
+                <TextBlock x:Name="TextoTituloDetalle" DockPanel.Dock="Top"
+                           Style="{StaticResource TituloPanel}" Text="DETALLE" />
+
+                <Border DockPanel.Dock="Bottom" Style="{StaticResource Bandeja}" Margin="0,12,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="14" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Producto" Style="{StaticResource Etiqueta}" />
+                            <ComboBox x:Name="ComboProductos" Margin="0"
+                                      DisplayMemberPath="NombreProducto"
+                                      SelectedValuePath="IdProducto"
+                                      SelectionChanged="AlSeleccionarProductoDetalle" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Width="85">
+                            <TextBlock Text="Precio" Style="{StaticResource Etiqueta}" />
+                            <TextBox x:Name="CampoDetallePrecio" Margin="0" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="4" Width="75">
+                            <TextBlock Text="Cantidad" Style="{StaticResource Etiqueta}" />
+                            <TextBox x:Name="CampoDetalleCantidad" Margin="0" Text="1" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="6" Width="85">
+                            <TextBlock Text="Descuento" Style="{StaticResource Etiqueta}" />
+                            <TextBox x:Name="CampoDetalleDescuento" Margin="0" Text="0.00" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="8" Orientation="Horizontal" VerticalAlignment="Bottom">
+                            <Button x:Name="BotonAgregarLinea" Content="Agregar"
+                                    Style="{StaticResource BotonPrimario}" Click="AlGuardarLinea" MinWidth="95" />
+                            <Button x:Name="BotonQuitarLinea" Content="Quitar"
+                                    Style="{StaticResource BotonPeligro}" Click="AlQuitarLinea"
+                                    IsEnabled="False" Margin="0" MinWidth="80" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <DataGrid x:Name="GrillaDetalle" SelectionChanged="AlSeleccionarLinea">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="PRODUCTO"  Binding="{Binding NombreProducto}" Width="*" />
+                        <DataGridTextColumn Header="PRECIO"    Binding="{Binding PrecioUnidad, StringFormat={}{0:N2}}" Width="90" />
+                        <DataGridTextColumn Header="CANTIDAD"  Binding="{Binding Cantidad}" Width="80" />
+                        <DataGridTextColumn Header="DESCUENTO" Binding="{Binding Descuento, StringFormat={}{0:P0}}" Width="90" />
+                        <DataGridTextColumn Header="SUBTOTAL"  Binding="{Binding Subtotal, StringFormat={}{0:N2}}" Width="100" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Border>
+
+        <Border Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" Style="{StaticResource Tarjeta}">
+            <DockPanel>
+                <TextBlock x:Name="TextoModo" DockPanel.Dock="Top"
+                           Style="{StaticResource TituloPanel}" Text="NUEVO PEDIDO" />
+
+                <StackPanel DockPanel.Dock="Bottom" Margin="0,16,0,0">
+                    <Border Style="{StaticResource Bandeja}" Margin="0,0,0,14">
+                        <StackPanel>
+                            <TextBlock Text="Total del detalle" Style="{StaticResource Etiqueta}" Margin="0,0,0,2" />
+                            <TextBlock x:Name="TextoTotal" Text="0.00" Style="{StaticResource Cifra}" />
+                        </StackPanel>
+                    </Border>
+
+                    <WrapPanel>
+                        <Button Content="Guardar" Style="{StaticResource BotonPrimario}"   Click="AlGuardar" Margin="0,0,8,8" />
+                        <Button Content="Nuevo"   Style="{StaticResource BotonSecundario}" Click="AlNuevo" Margin="0,0,8,8" />
+                        <Button x:Name="BotonEliminar" Content="Dar de baja"
+                                Style="{StaticResource BotonPeligro}"
+                                ToolTip="Eliminacion logica: pone Activo = 0 en la cabecera y conserva el detalle"
+                                Click="AlEliminar" IsEnabled="False" Margin="0,0,8,8" />
+                        <Button x:Name="BotonRestaurar" Content="Restaurar"
+                                Style="{StaticResource BotonSecundario}"
+                                ToolTip="Deshace la baja: vuelve a poner Activo = 1"
+                                Click="AlRestaurar" IsEnabled="False" Margin="0,0,0,8" />
+                    </WrapPanel>
+                </StackPanel>
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="0,0,10,0">
+                        <TextBlock Text="Identificador" Style="{StaticResource Etiqueta}" />
+                        <TextBox x:Name="CampoId" IsReadOnly="True" Text="(automatico)" />
+
+                        <TextBlock Text="Cliente" Style="{StaticResource Etiqueta}" />
+                        <ComboBox x:Name="ComboClientes" DisplayMemberPath="NombreCompania"
+                                  SelectedValuePath="IdCliente"
+                                  SelectionChanged="AlSeleccionarCliente" />
+
+                        <TextBlock Text="Empleado" Style="{StaticResource Etiqueta}" />
+                        <ComboBox x:Name="ComboEmpleados" DisplayMemberPath="NombreCompleto"
+                                  SelectedValuePath="IdEmpleado" />
+
+                        <TextBlock Text="Fecha del pedido" Style="{StaticResource Etiqueta}" />
+                        <DatePicker x:Name="CampoFechaPedido" />
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Entrega" Style="{StaticResource Etiqueta}" />
+                                <DatePicker x:Name="CampoFechaEntrega" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="Envio" Style="{StaticResource Etiqueta}" />
+                                <DatePicker x:Name="CampoFechaEnvio" />
+                            </StackPanel>
+                        </Grid>
+
+                        <TextBlock Text="Cargo por envio" Style="{StaticResource Etiqueta}" />
+                        <TextBox x:Name="CampoCargo" Text="0.00" />
+
+                        <TextBlock Text="Destinatario" Style="{StaticResource Etiqueta}" />
+                        <TextBox x:Name="CampoDestinatario" MaxLength="60" />
+
+                        <TextBlock Text="Direccion" Style="{StaticResource Etiqueta}" />
+                        <TextBox x:Name="CampoDireccion" MaxLength="120" />
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Ciudad" Style="{StaticResource Etiqueta}" />
+                                <TextBox x:Name="CampoCiudad" MaxLength="50" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="Pais" Style="{StaticResource Etiqueta}" />
+                                <TextBox x:Name="CampoPais" MaxLength="50" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </DockPanel>
+        </Border>
+    </Grid>
+</UserControl>

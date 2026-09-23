@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="Lab06_DAEA.Vistas.ReportesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             FontFamily="Segoe UI"
+             Loaded="AlCargar">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="14" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Style="{StaticResource Tarjeta}">
+            <StackPanel>
+                <TextBlock Text="Reportes" Style="{StaticResource Titulo}" />
+
+                <Border Style="{StaticResource Bandeja}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="18" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Width="140">
+                            <TextBlock Text="Desde" Style="{StaticResource Etiqueta}" />
+                            <DatePicker x:Name="CampoFechaInicio" Margin="0" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Width="140">
+                            <TextBlock Text="Hasta" Style="{StaticResource Etiqueta}" />
+                            <DatePicker x:Name="CampoFechaFin" Margin="0" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Bottom">
+                            <Button Content="Generar" Style="{StaticResource BotonPrimario}"
+                                    Click="AlGenerar" MinWidth="95" />
+                            <Button Content="Ultimos 30 dias" Style="{StaticResource BotonSecundario}"
+                                    Click="AlUltimos30Dias" MinWidth="115" />
+                            <Button Content="Todo el anio" Style="{StaticResource BotonSecundario}"
+                                    Click="AlAnioActual" MinWidth="100" Margin="0" />
+                        </StackPanel>
+
+                        <Button Grid.Column="6" Content="Exportar CSV"
+                                Style="{StaticResource BotonSecundario}"
+                                Click="AlExportar" MinWidth="110" Margin="0"
+                                VerticalAlignment="Bottom" />
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="18" />
+                <ColumnDefinition Width="330" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource Tarjeta}">
+                <DockPanel>
+                    <TextBlock x:Name="TextoTituloDetalle" DockPanel.Dock="Top"
+                               Style="{StaticResource TituloPanel}" Text="DETALLE" />
+
+                    <TextBlock x:Name="TextoEstado" DockPanel.Dock="Bottom"
+                               Style="{StaticResource Pie}" Margin="0,10,0,0" />
+
+                    <Border x:Name="AvisoExcluidos" DockPanel.Dock="Bottom"
+                            Style="{StaticResource Bandeja}" Margin="0,12,0,0"
+                            Visibility="Collapsed">
+                        <TextBlock x:Name="TextoExcluidos" TextWrapping="Wrap"
+                                   FontSize="11.5"
+                                   Foreground="{StaticResource TintaMedia}" />
+                    </Border>
+
+                    <DataGrid x:Name="GrillaReporte">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="PEDIDO"   Binding="{Binding IdPedido}" Width="60" />
+                            <DataGridTextColumn Header="FECHA"    Binding="{Binding FechaPedido, StringFormat=dd/MM/yyyy}" Width="85" />
+                            <DataGridTextColumn Header="CLIENTE"  Binding="{Binding NombreCliente}" Width="1.4*" />
+                            <DataGridTextColumn Header="PRODUCTO" Binding="{Binding NombreProducto}" Width="1.8*" />
+                            <DataGridTextColumn Header="PRECIO"   Binding="{Binding PrecioUnidad, StringFormat={}{0:N2}}" Width="70" />
+                            <DataGridTextColumn Header="CANT."    Binding="{Binding Cantidad}" Width="55" />
+                            <DataGridTextColumn Header="DSCTO."   Binding="{Binding Descuento, StringFormat={}{0:P0}}" Width="60" />
+                            <DataGridTextColumn Header="SUBTOTAL" Binding="{Binding Subtotal, StringFormat={}{0:N2}}" Width="90" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource Tarjeta}">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Style="{StaticResource TituloPanel}"
+                               Text="POR CATEGORIA" />
+
+                    <Border DockPanel.Dock="Bottom" Style="{StaticResource Bandeja}" Margin="0,14,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Importe del periodo" Style="{StaticResource Etiqueta}" Margin="0,0,0,2" />
+                            <TextBlock x:Name="TextoImporteTotal" Text="0.00" Style="{StaticResource Cifra}" />
+                            <TextBlock x:Name="TextoUnidades" Style="{StaticResource Etiqueta}"
+                                       Text="0 unidades vendidas" Margin="0,6,0,0" />
+                        </StackPanel>
+                    </Border>
+
+                    <DataGrid x:Name="GrillaResumen">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="CATEGORIA" Binding="{Binding NombreCategoria}" Width="*" />
+                            <DataGridTextColumn Header="UNID."     Binding="{Binding UnidadesVendidas}" Width="60" />
+                            <DataGridTextColumn Header="IMPORTE"   Binding="{Binding Importe, StringFormat={}{0:N2}}" Width="90" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

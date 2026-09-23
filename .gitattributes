@@ -1,0 +1,16 @@
+###############################################################################
+# Set default behavior to automatically normalize line endings.
+###############################################################################
+* text=auto
+
+###############################################################################
+# Set default behavior for command prompt diff.
+###############################################################################
+*.doc   diff=astextplain
+*.docx  diff=astextplain
+
+###############################################################################
+# Set the merge driver for project and solution files
+###############################################################################
+*.sln       text eol=crlf merge=binary
+*.csproj    text eol=crlf merge=union

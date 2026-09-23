@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Lab06_DAEA.Datos/Lab06_DAEA.Datos.csproj" />
+  <Project Path="Lab06_DAEA/Lab06_DAEA.csproj" />
+</Solution>

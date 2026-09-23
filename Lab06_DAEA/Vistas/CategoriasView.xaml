@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="Lab06_DAEA.Vistas.CategoriasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             FontFamily="Segoe UI"
+             Loaded="AlCargar">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="18" />
+            <ColumnDefinition Width="320" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Style="{StaticResource Tarjeta}">
+            <DockPanel>
+                <Grid DockPanel.Dock="Top" Margin="0,0,0,14">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="14" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="Categorias"
+                               Style="{StaticResource Titulo}" Margin="0" />
+
+                    <CheckBox x:Name="MostrarInactivos" Grid.Column="1"
+                              Content="Mostrar dados de baja"
+                              VerticalAlignment="Center" Margin="0"
+                              ToolTip="Por defecto el listado solo trae los registros con Activo = 1"
+                              Checked="AlCambiarVisibilidad" Unchecked="AlCambiarVisibilidad" />
+
+                    <Button Grid.Column="3" Content="Actualizar"
+                            Style="{StaticResource BotonSecundario}"
+                            Click="AlActualizarLista" Margin="0" />
+                </Grid>
+
+                <TextBlock x:Name="TextoEstado" DockPanel.Dock="Bottom"
+                           Style="{StaticResource Pie}" Margin="0,12,0,0" />
+
+                <DataGrid x:Name="GrillaCategorias" SelectionChanged="AlSeleccionarCategoria"
+                          RowStyle="{StaticResource FilaConEstado}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID"          Binding="{Binding IdCategoria}"     Width="60" />
+                        <DataGridTextColumn Header="CATEGORIA"   Binding="{Binding NombreCategoria}" Width="190" />
+                        <DataGridTextColumn Header="DESCRIPCION" Binding="{Binding Descripcion}"     Width="*" />
+                        <DataGridTextColumn Header="ESTADO"      Binding="{Binding EstadoTexto}"     Width="105" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Border>
+
+        <Border Grid.Column="2" Style="{StaticResource Tarjeta}">
+            <DockPanel>
+                <TextBlock x:Name="TextoModo" DockPanel.Dock="Top"
+                           Style="{StaticResource TituloPanel}" Text="NUEVA CATEGORIA" />
+
+                <StackPanel DockPanel.Dock="Bottom" Margin="0,16,0,0">
+                    <WrapPanel>
+                        <Button Content="Guardar" Style="{StaticResource BotonPrimario}"   Click="AlGuardar" Margin="0,0,8,8" />
+                        <Button Content="Nuevo"   Style="{StaticResource BotonSecundario}" Click="AlNuevo" Margin="0,0,8,8" />
+                        <Button x:Name="BotonEliminar" Content="Dar de baja"
+                                Style="{StaticResource BotonPeligro}"
+                                ToolTip="Eliminacion logica: pone Activo = 0, no borra la fila"
+                                Click="AlEliminar" IsEnabled="False" Margin="0,0,8,8" />
+                        <Button x:Name="BotonRestaurar" Content="Restaurar"
+                                Style="{StaticResource BotonSecundario}"
+                                ToolTip="Deshace la baja: vuelve a poner Activo = 1"
+                                Click="AlRestaurar" IsEnabled="False" Margin="0,0,0,8" />
+                    </WrapPanel>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Identificador" Style="{StaticResource Etiqueta}" />
+                    <TextBox x:Name="CampoId" IsReadOnly="True" Text="(automatico)" />
+
+                    <TextBlock Text="Nombre" Style="{StaticResource Etiqueta}" />
+                    <TextBox x:Name="CampoNombre" MaxLength="50" />
+
+                    <TextBlock Text="Descripcion" Style="{StaticResource Etiqueta}" />
+                    <TextBox x:Name="CampoDescripcion" MaxLength="500" Height="96"
+                             AcceptsReturn="True" TextWrapping="Wrap"
+                             VerticalContentAlignment="Top" Padding="9,7" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+    </Grid>
+</UserControl>

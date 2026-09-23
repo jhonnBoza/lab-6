@@ -1,0 +1,344 @@
+﻿<Application x:Class="Lab06_DAEA.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             >
+    <Application.Resources>
+
+        <SolidColorBrush x:Key="Acento"         Color="#0F766E" />
+        <SolidColorBrush x:Key="AcentoOscuro"   Color="#115E59" />
+        <SolidColorBrush x:Key="AcentoSuave"    Color="#E6F2F1" />
+        <SolidColorBrush x:Key="AcentoTenue"    Color="#F2F8F7" />
+
+        <SolidColorBrush x:Key="Lienzo"         Color="#F6F6F4" />
+        <SolidColorBrush x:Key="Superficie"     Color="#FFFFFF" />
+        <SolidColorBrush x:Key="SuperficieAlt"  Color="#FBFBFA" />
+        <SolidColorBrush x:Key="Panel"          Color="#F1F1EE" />
+
+        <SolidColorBrush x:Key="Borde"          Color="#E3E3DF" />
+        <SolidColorBrush x:Key="BordeFuerte"    Color="#CFCFC9" />
+
+        <SolidColorBrush x:Key="Tinta"          Color="#1A1A17" />
+        <SolidColorBrush x:Key="TintaMedia"     Color="#5C5C55" />
+        <SolidColorBrush x:Key="TintaTenue"     Color="#8A8A81" />
+
+        <SolidColorBrush x:Key="Peligro"        Color="#A93226" />
+        <SolidColorBrush x:Key="PeligroSuave"   Color="#FBEEEC" />
+
+        <Duration x:Key="Transicion">0:0:0.13</Duration>
+
+        <Style x:Key="Titulo" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{StaticResource Tinta}" />
+            <Setter Property="Margin" Value="0,0,0,14" />
+        </Style>
+
+        <Style x:Key="TituloPanel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{StaticResource TintaMedia}" />
+            <Setter Property="Margin" Value="0,0,0,14" />
+        </Style>
+
+        <Style x:Key="Etiqueta" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Foreground" Value="{StaticResource TintaTenue}" />
+            <Setter Property="Margin" Value="0,0,0,4" />
+        </Style>
+
+        <Style x:Key="Pie" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Foreground" Value="{StaticResource TintaTenue}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        </Style>
+
+        <Style x:Key="Tarjeta" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource Superficie}" />
+            <Setter Property="BorderBrush" Value="{StaticResource Borde}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="18,16" />
+        </Style>
+
+        <Style x:Key="Bandeja" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource Panel}" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="14,12" />
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Padding" Value="9,0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="{StaticResource Tinta}" />
+            <Setter Property="CaretBrush" Value="{StaticResource Acento}" />
+            <Setter Property="SelectionBrush" Value="{StaticResource Acento}" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Margin" Value="0,0,0,12" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="caja"
+                                Background="{StaticResource SuperficieAlt}"
+                                BorderBrush="{StaticResource Borde}"
+                                BorderThickness="1"
+                                CornerRadius="3">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="caja" Property="BorderBrush" Value="{StaticResource BordeFuerte}" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="caja" Property="BorderBrush" Value="{StaticResource Acento}" />
+                                <Setter TargetName="caja" Property="Background" Value="{StaticResource Superficie}" />
+                            </Trigger>
+                            <Trigger Property="IsReadOnly" Value="True">
+                                <Setter TargetName="caja" Property="Background" Value="{StaticResource Panel}" />
+                                <Setter Property="Foreground" Value="{StaticResource TintaTenue}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="{StaticResource Tinta}" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,0,12" />
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,0,12" />
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="{StaticResource Tinta}" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,4,0,14" />
+        </Style>
+
+        <Style x:Key="BotonBase" TargetType="Button">
+            <Setter Property="Height" Value="31" />
+            <Setter Property="MinWidth" Value="88" />
+            <Setter Property="Padding" Value="14,0" />
+            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+        </Style>
+
+        <Style x:Key="BotonPrimario" TargetType="Button" BasedOn="{StaticResource BotonBase}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="fondo" Background="{StaticResource Acento}" CornerRadius="3">
+                            <ContentPresenter x:Name="texto" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              TextBlock.Foreground="White" TextBlock.FontWeight="Medium" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="fondo" Property="Background" Value="{StaticResource AcentoOscuro}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="fondo" Property="Background" Value="#0B4F4A" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="fondo" Property="Background" Value="{StaticResource Borde}" />
+                                <Setter TargetName="texto" Property="TextBlock.Foreground" Value="{StaticResource TintaTenue}" />
+                                <Setter Property="Cursor" Value="Arrow" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BotonSecundario" TargetType="Button" BasedOn="{StaticResource BotonBase}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="fondo" Background="{StaticResource Superficie}"
+                                BorderBrush="{StaticResource Borde}" BorderThickness="1" CornerRadius="3">
+                            <ContentPresenter x:Name="texto" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              TextBlock.Foreground="{StaticResource TintaMedia}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="fondo" Property="Background" Value="{StaticResource Panel}" />
+                                <Setter TargetName="fondo" Property="BorderBrush" Value="{StaticResource BordeFuerte}" />
+                                <Setter TargetName="texto" Property="TextBlock.Foreground" Value="{StaticResource Tinta}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="fondo" Property="Background" Value="{StaticResource Borde}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="texto" Property="TextBlock.Foreground" Value="{StaticResource TintaTenue}" />
+                                <Setter Property="Opacity" Value="0.6" />
+                                <Setter Property="Cursor" Value="Arrow" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BotonPeligro" TargetType="Button" BasedOn="{StaticResource BotonBase}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="fondo" Background="Transparent"
+                                BorderBrush="{StaticResource Borde}" BorderThickness="1" CornerRadius="3">
+                            <ContentPresenter x:Name="texto" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              TextBlock.Foreground="{StaticResource Peligro}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="fondo" Property="Background" Value="{StaticResource PeligroSuave}" />
+                                <Setter TargetName="fondo" Property="BorderBrush" Value="{StaticResource Peligro}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="fondo" Property="Background" Value="#F5DEDA" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="texto" Property="TextBlock.Foreground" Value="{StaticResource TintaTenue}" />
+                                <Setter Property="Opacity" Value="0.55" />
+                                <Setter Property="Cursor" Value="Arrow" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ItemNavegacion" TargetType="TabItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid x:Name="fila" Background="Transparent" Height="38">
+                            <Border x:Name="marca" Width="2" HorizontalAlignment="Left"
+                                    Background="Transparent" Margin="0,6" />
+                            <ContentPresenter x:Name="texto"
+                                              ContentSource="Header"
+                                              VerticalAlignment="Center"
+                                              Margin="18,0,14,0"
+                                              TextBlock.FontSize="12"
+                                              TextBlock.Foreground="{StaticResource TintaMedia}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="fila" Property="Background" Value="#EDEDE9" />
+                                <Setter TargetName="texto" Property="TextBlock.Foreground" Value="{StaticResource Tinta}" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="fila" Property="Background" Value="{StaticResource AcentoTenue}" />
+                                <Setter TargetName="marca" Property="Background" Value="{StaticResource Acento}" />
+                                <Setter TargetName="texto" Property="TextBlock.Foreground" Value="{StaticResource AcentoOscuro}" />
+                                <Setter TargetName="texto" Property="TextBlock.FontWeight" Value="SemiBold" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <Style TargetType="DataGrid">
+            <Setter Property="AutoGenerateColumns" Value="False" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="SelectionMode" Value="Single" />
+            <Setter Property="SelectionUnit" Value="FullRow" />
+            <Setter Property="HeadersVisibility" Value="Column" />
+            <Setter Property="GridLinesVisibility" Value="None" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="RowBackground" Value="Transparent" />
+            <Setter Property="RowHeight" Value="32" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="CanUserAddRows" Value="False" />
+            <Setter Property="CanUserResizeRows" Value="False" />
+            <Setter Property="Foreground" Value="{StaticResource Tinta}" />
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{StaticResource TintaTenue}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Padding" Value="10,0" />
+            <Setter Property="BorderBrush" Value="{StaticResource Borde}" />
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="DataGridRow">
+            <Setter Property="BorderBrush" Value="{StaticResource Borde}" />
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource SuperficieAlt}" />
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource AcentoSuave}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="10,0" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridCell">
+                        <Border Background="Transparent" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource Tinta}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="FilaConEstado" TargetType="DataGridRow">
+            <Setter Property="BorderBrush" Value="{StaticResource Borde}" />
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Activo}" Value="False">
+                    <Setter Property="Foreground" Value="{StaticResource TintaTenue}" />
+                    <Setter Property="Background" Value="{StaticResource Panel}" />
+                </DataTrigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource SuperficieAlt}" />
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource AcentoSuave}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="Cifra" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{StaticResource Tinta}" />
+        </Style>
+
+    </Application.Resources>
+</Application>
