@@ -29,7 +29,7 @@ Las escrituras siguen usando **`ExecuteNonQuery`** (alta / edición / baja lógi
 | `Evidencias/` | Capturas adicionales (baja lógica, búsqueda, reportes). |
 | `GLAB-S06-EAREVALO-2026-2.docx` | Enunciado del laboratorio. |
 
-**Repositorio:** https://github.com/jhonnBoza/lab-6.git
+**Repositorio:** https://github.com/jhonnBoza/lab-5.git (rama `lab-6`)
 
 ---
 
