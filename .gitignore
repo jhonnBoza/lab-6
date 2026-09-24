@@ -481,6 +481,6 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 
-# Capturas y evidencias de ejecucion: quedan solo en local, no se publican
-Evidencias/
-Capturas/
+# Las carpetas Capturas/ y Evidencias/ SI se versionan (entrega del laboratorio).
+# No ignorar png de evidencia.
+

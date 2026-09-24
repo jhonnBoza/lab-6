@@ -25,7 +25,12 @@ Las escrituras siguen usando **`ExecuteNonQuery`** (alta / edición / baja lógi
 | `Lab06_DAEA.Datos/` | **Class Library**: modelos + capa Repository/Data. |
 | `Lab06_DAEA/` | Proyecto WPF de inicio (UI + `App.config` con la cadena de conexión). |
 | `Lab06_DAEA.slnx` | Solución con ambos proyectos y la referencia correcta. |
+| `Capturas/` | Capturas de las cinco vistas en ejecución. |
+| `Evidencias/` | Capturas adicionales (baja lógica, búsqueda, reportes). |
 | `GLAB-S06-EAREVALO-2026-2.docx` | Enunciado del laboratorio. |
+
+**Repositorio:** https://cursor.com/codebase/jhon-andherson-boza-nunez/lab-6-continuation  
+(clone con Origin CLI: `origin repo clone jhon-andherson-boza-nunez/lab-6-continuation`)
 
 ---
 
@@ -130,7 +135,35 @@ En el Lab 05 las cargas eran síncronas y podían congelar la ventana. Aquí:
 
 ---
 
-## 7. Observaciones y conclusiones
+## 7. Capturas de las vistas
+
+### Capturas/
+
+| Archivo | Vista |
+|---------|-------|
+| `01-productos.png` | Mantenimiento de productos |
+| `02-categorias.png` | Mantenimiento de categorías |
+| `03-proveedores.png` | Mantenimiento de proveedores |
+| `04-pedidos.png` | Mantenimiento de pedidos |
+| `05-reportes.png` | Reportes por intervalo de fechas |
+
+### Evidencias/
+
+| Archivo | Qué muestra |
+|---------|-------------|
+| `01-productos-con-dados-de-baja.png` | Listado con `Mostrar dados de baja` |
+| `02-proveedores-busqueda-lima.png` | Búsqueda por ciudad = Lima |
+| `03-proveedores-con-dados-de-baja.png` | Proveedores incluyendo inactivos |
+| `04-categorias-con-dados-de-baja.png` | Categorías incluyendo inactivas |
+| `05-pedidos-con-dados-de-baja.png` | Pedidos incluyendo dados de baja |
+| `06-reportes-ultimos-30.png` | Reporte últimos 30 días |
+| `07-productos-listado.png` | Listado de productos activos |
+
+Para regenerarlas: `powershell -ExecutionPolicy Bypass -File Scripts\CapturarVistas.ps1`
+
+---
+
+## 8. Observaciones y conclusiones
 
 - Separar la Class Library obliga a pensar en el **proyecto de inicio** como dueño
   de la configuración: el gotcha de `App.config` es el síntoma típico.
